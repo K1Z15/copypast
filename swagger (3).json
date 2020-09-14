@@ -1,0 +1,864 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Serveur de test TWIMM - M-Energies.  Description par `Afludia`.",
+    "version": "0.0.3",
+    "title": "Swagger TWIMM - M-Energies",
+    "termsOfService": "http://www.afludia.com",
+    "contact": {
+      "email": "informatique@afludia.com"
+    },
+    "license": {
+      "name": "Libre",
+      "url": "http://www.afludia.com"
+    }
+  },
+  "host": "localhost:44392",
+  "basePath": "/api/PasserelletwimmMenergies/",
+  "tags": [
+    {
+      "name": "PASSERELLE AFLUDIA MEnergies",
+      "description": "Communication TWIMM - M-Energies",
+      "externalDocs": {
+        "description": "Plus d'information",
+        "url": "http://www.afludia.com"
+      }
+    }
+  ],
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/NouvelImport": {
+      "post": {
+        "tags": [
+          "PASSERELLE"
+        ],
+        "summary": "Signale un nouvel import",
+        "description": "signale la dépose des fichiers xml sur le FTP pour injection",
+        "operationId": "NouvelImport",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "pour test format définition",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NouvelImport"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "retour du n° de tranfert (transfert_id)."
+          },
+          "201": {
+            "description": "Requête traitée avec succès et création d’un document."
+          },
+          "400": {
+            "description": "La syntaxe de la requête est erronée.",
+            "schema": {
+              "$ref": "#/definitions/ApiReponseErreur"
+            }
+          },
+          "401": {
+            "description": "Une authentification est nécessaire pour accéder à la ressource.",
+            "schema": {
+              "$ref": "#/definitions/ApiReponseErreur"
+            }
+          },
+          "404": {
+            "description": "Ressource non trouvée.",
+            "schema": {
+              "$ref": "#/definitions/ApiReponseErreur"
+            }
+          },
+          "405": {
+            "description": "Méthode de requête non autorisée.",
+            "schema": {
+              "$ref": "#/definitions/ApiReponseErreur"
+            }
+          },
+          "449": {
+            "description": "La requête devrait être renvoyée après avoir effectué une action.",
+            "schema": {
+              "$ref": "#/definitions/ApiReponseErreur"
+            }
+          }
+        }
+      }
+    },
+    "/ImportSuivi": {
+      "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": [
+          "ImportSuivi"
+        ],
+        "summary": "Suivi de l'état de l'import en cours",
+        "description": "Suivi de l'état de l'import en cours",
+        "operationId": "ImportSuivi",
+        "consumes": [
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ImportSuivi"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retour le code de l'état de l'import en cours.",
+            "schema": {
+              "$ref": "#/definitions/RetourSuivi"
+            }
+          },
+          "400": {
+            "description": "La syntaxe de la requête est erronée.",
+            "schema": {
+              "$ref": "#/definitions/ApiReponseErreur"
+            }
+          },
+          "401": {
+            "description": "Une authentification est nécessaire pour accéder à la ressource.",
+            "schema": {
+              "$ref": "#/definitions/ApiReponseErreur"
+            }
+          },
+          "404": {
+            "description": "Ressource non trouvée.",
+            "schema": {
+              "$ref": "#/definitions/ApiReponseErreur"
+            }
+          },
+          "405": {
+            "description": "Méthode de requête non autorisée.",
+            "schema": {
+              "$ref": "#/definitions/ApiReponseErreur"
+            }
+          },
+          "449": {
+            "description": "La requête devrait être renvoyée après avoir effectué une action.",
+            "schema": {
+              "$ref": "#/definitions/ApiReponseErreur"
+            }
+          }
+        }
+      }
+    },
+    "/MaJ_StatutIntervention": {
+      "put": {
+        "tags": [
+          "PASSERELLE"
+        ],
+        "summary": "Mise à jour du statut d'un dossier Twimm => Afludia",
+        "description": "Change le statut d'un dossier : 1 : accepté, 2 : commencé, 3 : clôturé",
+        "operationId": "MaJ_StatutIntervention",
+        "consumes": [
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Objets nécessaires pour le changement de statut",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MaJ_StatutIntervention"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Requête traitée avec succès et création d’un document."
+          },
+          "400": {
+            "description": "La syntaxe de la requête est erronée.",
+            "schema": {
+              "$ref": "#/definitions/ApiReponseErreur"
+            }
+          },
+          "401": {
+            "description": "Une authentification est nécessaire pour accéder à la ressource.",
+            "schema": {
+              "$ref": "#/definitions/ApiReponseErreur"
+            }
+          },
+          "404": {
+            "description": "Ressource non trouvée.",
+            "schema": {
+              "$ref": "#/definitions/ApiReponseErreur"
+            }
+          },
+          "405": {
+            "description": "Méthode de requête non autorisée.",
+            "schema": {
+              "$ref": "#/definitions/ApiReponseErreur"
+            }
+          },
+          "449": {
+            "description": "La requête devrait être renvoyée après avoir effectué une action.",
+            "schema": {
+              "$ref": "#/definitions/ApiReponseErreur"
+            }
+          }
+        }
+      }
+    },
+    "/ModifierTelephone": {
+      "put": {
+        "tags": [
+          "PASSERELLE"
+        ],
+        "summary": "Changement de téléphone - Twimm => Afludia",
+        "description": "Changer le n° de téléphone d'un technicien",
+        "operationId": "ModifierTelephone",
+        "consumes": [
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Objets nécessaires pour le changement de téléphone",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ModifierTelephone"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Requête traitée avec succès et création d’un document."
+          },
+          "400": {
+            "description": "La syntaxe de la requête est erronée.",
+            "schema": {
+              "$ref": "#/definitions/ApiReponseErreur"
+            }
+          },
+          "401": {
+            "description": "Une authentification est nécessaire pour accéder à la ressource.",
+            "schema": {
+              "$ref": "#/definitions/ApiReponseErreur"
+            }
+          },
+          "404": {
+            "description": "Ressource non trouvée.",
+            "schema": {
+              "$ref": "#/definitions/ApiReponseErreur"
+            }
+          },
+          "405": {
+            "description": "Méthode de requête non autorisée.",
+            "schema": {
+              "$ref": "#/definitions/ApiReponseErreur"
+            }
+          },
+          "449": {
+            "description": "La requête devrait être renvoyée après avoir effectué une action.",
+            "schema": {
+              "$ref": "#/definitions/ApiReponseErreur"
+            }
+          }
+        }
+      }
+    },
+    "/ModifierPlanification": {
+      "put": {
+        "tags": [
+          "PASSERELLE"
+        ],
+        "summary": "Changement de planification d’astreinte  - Twimm => Afludia)",
+        "description": "Changer la planification d'astreinte d'un technicien par son IDENTIFIANT",
+        "operationId": "ModifierPlanification",
+        "consumes": [
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Objets nécessaires pour le changement de planning",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ModifierPlanification"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Requête traitée avec succès et création d’un document."
+          },
+          "400": {
+            "description": "La syntaxe de la requête est erronée.",
+            "schema": {
+              "$ref": "#/definitions/ApiReponseErreur"
+            }
+          },
+          "401": {
+            "description": "Une authentification est nécessaire pour accéder à la ressource.",
+            "schema": {
+              "$ref": "#/definitions/ApiReponseErreur"
+            }
+          },
+          "404": {
+            "description": "Ressource non trouvée.",
+            "schema": {
+              "$ref": "#/definitions/ApiReponseErreur"
+            }
+          },
+          "405": {
+            "description": "Méthode de requête non autorisée.",
+            "schema": {
+              "$ref": "#/definitions/ApiReponseErreur"
+            }
+          },
+          "449": {
+            "description": "La requête devrait être renvoyée après avoir effectué une action.",
+            "schema": {
+              "$ref": "#/definitions/ApiReponseErreur"
+            }
+          }
+        }
+      }
+    },
+    "/TEST": {
+      "put": {
+        "tags": [
+          "PASSERELLE"
+        ],
+        "summary": "test schéma definition",
+        "description": "test schéma definition",
+        "operationId": "TestSchema",
+        "consumes": [
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "pour test format définition",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TECHNICIENS"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Requête traitée avec succès et création d’un document."
+          },
+          "400": {
+            "description": "La syntaxe de la requête est erronée.",
+            "schema": {
+              "$ref": "#/definitions/ApiReponseErreur"
+            }
+          },
+          "401": {
+            "description": "Une authentification est nécessaire pour accéder à la ressource.",
+            "schema": {
+              "$ref": "#/definitions/ApiReponseErreur"
+            }
+          },
+          "404": {
+            "description": "Ressource non trouvée.",
+            "schema": {
+              "$ref": "#/definitions/ApiReponseErreur"
+            }
+          },
+          "405": {
+            "description": "Méthode de requête non autorisée.",
+            "schema": {
+              "$ref": "#/definitions/ApiReponseErreur"
+            }
+          },
+          "449": {
+            "description": "La requête devrait être renvoyée après avoir effectué une action.",
+            "schema": {
+              "$ref": "#/definitions/ApiReponseErreur"
+            }
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "bearerAuth": {
+      "type": "apiKey",
+      "name": "X-API-Key",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "NouvelImport": {
+      "type": "object"
+    },
+    "ImportSuivi": {
+      "type": "object",
+      "required": [
+        "TRANSFERT_ID"
+      ],
+      "properties": {
+        "TRANSFERT_ID": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "xml": {
+        "name": "root"
+      }
+    },
+    "RetourSuivi": {
+      "type": "object",
+      "properties": {
+        "CaseNumber": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "xml": {
+        "name": "root"
+      }
+    },
+    "MaJ_StatutIntervention": {
+      "type": "object",
+      "required": [
+        "NUM_TWIMM",
+        "NUM_AFLUDIA",
+        "STATUT"
+      ],
+      "properties": {
+        "NUM_TWIMM": {
+          "type": "string",
+          "maxLength": 32
+        },
+        "NUM_AFLUDIA": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "STATUT": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "xml": {
+        "name": "root"
+      }
+    },
+    "ModifierPlanification": {
+      "type": "object",
+      "required": [
+        "CODE_EQUIPE",
+        "PLANIFICATION"
+      ],
+      "properties": {
+        "CODE_EQUIPE": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "PLANIFICATION": {
+          "type": "array",
+          "xml": {
+            "name": "PLANIFICATIONS",
+            "wrapped": true
+          },
+          "items": {
+            "$ref": "#/definitions/PLANIFICATION"
+          }
+        }
+      },
+      "xml": {
+        "name": "UpdateASTR"
+      }
+    },
+    "ModifierTelephone": {
+      "type": "object",
+      "required": [
+        "IDENTIFIANT",
+        "TEL"
+      ],
+      "properties": {
+        "IDENTIFIANT": {
+          "items": {
+            "$ref": "#/definitions/IDENTIFIANT"
+          }
+        },
+        "TEL": {
+          "type": "string",
+          "maxLength": 20
+        }
+      },
+      "xml": {
+        "name": "root"
+      }
+    },
+    "PLANIFICATION": {
+      "type": "object",
+      "required": [
+        "IDENTIFIANT",
+        "D_DEBUT"
+      ],
+      "properties": {
+        "IDENTIFIANT": {
+          "items": {
+            "$ref": "#/definitions/IDENTIFIANT"
+          }
+        },
+        "D_DEBUT": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "xml": {
+        "name": "root"
+      }
+    },
+    "CLIENTS": {
+      "type": "array",
+      "items": {
+        "properties": {
+          "CLIENT": {
+            "type": "object",
+            "required": [
+              "CODE_CLIENT",
+              "LIBELLE"
+            ],
+            "properties": {
+              "CODE_CLIENT": {
+                "type": "string",
+                "maxLength": 50
+              },
+              "LIBELLE": {
+                "type": "string",
+                "maxLength": 120
+              },
+              "ADRESSE": {
+                "type": "string",
+                "maxLength": 250
+              },
+              "CP": {
+                "type": "string",
+                "maxLength": 10
+              },
+              "VILLE": {
+                "type": "string",
+                "maxLength": 120
+              }
+            }
+          }
+        }
+      }
+    },
+    "SITES": {
+      "type": "array",
+      "items": {
+        "properties": {
+          "SITE": {
+            "type": "object",
+            "required": [
+              "CODE_SITE",
+              "CODE_AGENCE",
+              "REFERENTS",
+              "LIBELLE",
+              "ADRESSE",
+              "CP"
+            ],
+            "properties": {
+              "CODE_SITE": {
+                "type": "string",
+                "maxLength": 50
+              },
+              "CODE_AGENCE": {
+                "type": "string",
+                "maxLength": 32
+              },
+              "CODE_CLIENT": {
+                "type": "string",
+                "maxLength": 50
+              },
+              "REFERENTS": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/REFERENTS"
+                }
+              },
+              "LIBELLE": {
+                "type": "string",
+                "maxLength": 120
+              },
+              "ADRESSE": {
+                "type": "string",
+                "maxLength": 250
+              },
+              "CP": {
+                "type": "string",
+                "maxLength": 10
+              },
+              "VILLE": {
+                "type": "string",
+                "maxLength": 120
+              },
+              "PRIORITE": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "EQUIPES": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/EQUIPES"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "REFERENTS": {
+      "type": "object",
+      "required": [
+        "IDENTIFIANT",
+        "METIER_ID"
+      ],
+      "properties": {
+        "IDENTIFIANT": {
+          "items": {
+            "$ref": "#/definitions/IDENTIFIANT"
+          }
+        },
+        "METIER_ID": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "TECHNICIENS": {
+      "type": "array",
+      "items": {
+        "properties": {
+          "TECHNICIEN": {
+            "type": "object",
+            "required": [
+              "IDENTIFIANT",
+              "NOM"
+            ],
+            "properties": {
+              "IDENTIFIANT": {
+                "items": {
+                  "$ref": "#/definitions/IDENTIFIANT"
+                }
+              },
+              "NOM": {
+                "type": "string",
+                "maxLength": 120
+              },
+              "PRENOM": {
+                "type": "string",
+                "maxLength": 60
+              },
+              "TELEPHONE": {
+                "type": "string",
+                "maxLength": 20
+              },
+              "EMAIL": {
+                "type": "string",
+                "maxLength": 150
+              }
+            }
+          }
+        }
+      }
+    },
+    "AGENCES": {
+      "type": "array",
+      "items": {
+        "properties": {
+          "AGENCE": {
+            "type": "object",
+            "required": [
+              "CODE_AGENCE",
+              "LIBELLE"
+            ],
+            "properties": {
+              "CODE_AGENCE": {
+                "type": "string",
+                "maxLength": 32
+              },
+              "LIBELLE": {
+                "type": "string",
+                "maxLength": 255
+              },
+              "ADRESSE": {
+                "type": "string",
+                "maxLength": 250
+              },
+              "CP": {
+                "type": "string",
+                "maxLength": 10
+              },
+              "VILLE": {
+                "type": "string",
+                "maxLength": 120
+              },
+              "EMAIL": {
+                "type": "string",
+                "maxLength": 1024
+              },
+              "TELEPHONE": {
+                "type": "string",
+                "maxLength": 20
+              }
+            }
+          }
+        }
+      }
+    },
+    "HORAIRES": {
+      "type": "array",
+      "items": {
+        "properties": {
+          "HORAIRE": {
+            "type": "object",
+            "required": [
+              "CODE_AGENDE",
+              "HEURE_DEBUT_MATIN",
+              "HEURE_FIN_MATIN",
+              "HEURE_DEBUT_AM",
+              "HEURE_FIN_AM",
+              "JOUR"
+            ],
+            "properties": {
+              "CODE_AGENDE": {
+                "type": "string",
+                "maxLength": 32
+              },
+              "HEURE_DEBUT_MATIN": {
+                "type": "string",
+                "format": "time",
+                "minimum": 0
+              },
+              "HEURE_FIN_MATIN": {
+                "type": "string",
+                "format": "time",
+                "maximum": 43200
+              },
+              "HEURE_DEBUT_AM": {
+                "type": "string",
+                "format": "time",
+                "minimum": 43200
+              },
+              "HEURE_FIN_AM": {
+                "type": "string",
+                "format": "time",
+                "maximum": 86400
+              },
+              "JOUR": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        }
+      }
+    },
+    "EQUIPES": {
+      "type": "object",
+      "required": [
+        "CODE_EQUIPE"
+      ],
+      "properties": {
+        "CODE_EQUIPE": {
+          "type": "string",
+          "maxLength": 64
+        }
+      }
+    },
+    "PLANNIFICATIONS": {
+      "type": "array",
+      "items": {
+        "properties": {
+          "PLANNIFICATION": {
+            "type": "object",
+            "required": [
+              "IDENTIFIANT",
+              "CODE_EQUIPE",
+              "NOM_EQUIPE",
+              "DEBUT_ASTREINTE"
+            ],
+            "properties": {
+              "IDENTIFIANT": {
+                "items": {
+                  "$ref": "#/definitions/IDENTIFIANT"
+                }
+              },
+              "CODE_EQUIPE": {
+                "type": "string",
+                "maxLength": 64
+              },
+              "NOM_EQUIPE": {
+                "type": "string",
+                "maxLength": 255
+              },
+              "DEBUT_ASTREINTE": {
+                "type": "string",
+                "format": ":date-time"
+              }
+            }
+          }
+        }
+      }
+    },
+    "IDENTIFIANT": {
+      "type": "string",
+      "maxLength": 32
+    },
+    "ApiReponseErreur": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "type": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Informations complémentaires",
+    "url": "http://www.afludia.com"
+  }
+}
