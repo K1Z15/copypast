@@ -6,9 +6,101 @@
   "swaggerVersion": "1.2",
   "basePath": "http://192.168.5.103:8088/ari",
   "resourcePath": "/api-docs/events.{format}",
-  "requiresModules": [
-    "res_http_websocket"
-  ],  "models": {
+  "apis": [
+    {
+      "path": "/events",
+      "description": "Events from Asterisk to applications",
+      "operations": [
+        {
+          "httpMethod": "GET",
+          "upgrade": "websocket",
+          "websocketProtocol": "ari",
+          "summary": "WebSocket connection for events.",
+          "nickname": "eventWebsocket",
+          "responseClass": "Message",
+          "parameters": [
+            {
+              "name": "app",
+              "description": "Applications to subscribe to.",
+              "paramType": "query",
+              "required": true,
+              "allowMultiple": true,
+              "dataType": "string"
+            },
+            {
+              "name": "subscribeAll",
+              "description": "Subscribe to all Asterisk events. If provided, the applications listed will be subscribed to all events, effectively disabling the application specific subscriptions. Default is 'false'.",
+              "paramType": "query",
+              "required": false,
+              "allowMultiple": false,
+              "dataType": "boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/events/user/{eventName}",
+      "description": "Stasis application user events",
+      "operations": [
+        {
+          "httpMethod": "POST",
+          "summary": "Generate a user event.",
+          "nickname": "userEvent",
+          "responseClass": "void",
+          "parameters": [
+            {
+              "name": "eventName",
+              "description": "Event name",
+              "paramType": "path",
+              "required": true,
+              "allowMultiple": false,
+              "dataType": "string"
+            },
+            {
+              "name": "application",
+              "description": "The name of the application that will receive this event",
+              "paramType": "query",
+              "required": true,
+              "allowMultiple": false,
+              "dataType": "string"
+            },
+            {
+              "name": "source",
+              "description": "URI for event source (channel:{channelId}, bridge:{bridgeId}, endpoint:{tech}/{resource}, deviceState:{deviceName}",
+              "paramType": "query",
+              "required": false,
+              "allowMultiple": true,
+              "dataType": "string"
+            },
+            {
+              "name": "variables",
+              "description": "The \"variables\" key in the body object holds custom key/value pairs to add to the user event. Ex. { \"variables\": { \"key\": \"value\" } }",
+              "paramType": "body",
+              "required": false,
+              "allowMultiple": false,
+              "dataType": "containers"
+            }
+          ],
+          "errorResponses": [
+            {
+              "code": 404,
+              "reason": "Application does not exist."
+            },
+            {
+              "code": 422,
+              "reason": "Event source not found."
+            },
+            {
+              "code": 400,
+              "reason": "Invalid even tsource URI or userevent data."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "models": {
     "Message": {
       "id": "Message",
       "description": "Base type for errors and events",
