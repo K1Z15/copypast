@@ -21,11 +21,7 @@
           "required": false,
           "description": "The unique ID for the Asterisk instance that raised this event."
         }
-      },
-      "subTypes": [
-        "MissingParams",
-        "Event"
-      ]
-    },
-     }
+      }
+    }
+      }
 }
